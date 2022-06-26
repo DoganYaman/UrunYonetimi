@@ -1,0 +1,80 @@
+﻿@using UrunYonetimi.Data.Model
+@using UrunYonetimi.Admin.Helpers
+@model UrunYonetimi.Data.Model.Product
+
+@{
+    ViewBag.Title = "Ürün Düzenleme";
+}
+
+<h2>Ürün Düzenleme</h2>
+
+@using (Html.BeginForm("Edit", "Product", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProductId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+    var productFirstImage = Model.ProductImages.FirstOrDefault();
+    if (productFirstImage != null)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<img height="150" src="@string.Format("data:{0};base64,{1}", productFirstImage.ContentType, Convert.ToBase64String(productFirstImage.Content))" />*@
+                @Html.Base64Image(productFirstImage)
+            </div>
+        </div>
+    }
+        }
+
+
+
+        <div class="form-group">
+            @Html.Label("Resim", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="productImage" accept="image/*" />
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kaydet" class="btn btn-default" />
+
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+<div>
+    @Html.ActionLink("Özellikler", "Index", "ProductFeature", new { id = Model.ProductId }, new { }) |
+    @Html.ActionLink("Listeye Dön", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

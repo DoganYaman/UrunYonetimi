@@ -1,0 +1,13 @@
+﻿@model IList<UrunYonetimi.Data.Model.Category>
+@{
+    ViewBag.Title = "Ürünler Ana Sayfa";
+}
+
+<div class="row">
+    @Html.Partial("MainMenu", Model)
+
+    <div class="col-md-9">
+        @Html.Partial("ProductList", Model.FirstOrDefault().Products)
+    </div>
+
+</div>

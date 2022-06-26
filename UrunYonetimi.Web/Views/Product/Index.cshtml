@@ -1,0 +1,62 @@
+﻿@model UrunYonetimi.Web.ViewModel.ProductPageModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    @Html.Partial("MainMenu", Model.CategoryList)
+
+    <div class="col-md-9">
+
+        <div class="panel">
+            @Html.ActionLink("Listeye Dön", "Index", "Category", new {  id = Model.CurrentProduct.CategoryId}, new { })
+        </div>
+        <div class="span52-left">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        @Model.CurrentProduct.ProductName
+                    </h3>
+                </div>
+                <div class="panel-body textalgn">
+                    <img  height="500"
+                         src="@string.Format("data:{0};base64,{1}", Model.CurrentProduct.ProductImages.FirstOrDefault().ContentType, Convert.ToBase64String(Model.CurrentProduct.ProductImages.FirstOrDefault().Content))" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="span52-left">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ürün Özellikleri</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        @foreach (var feature in Model.CurrentProduct.ProductFeatures)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@feature.FeatureName</strong>
+                                </td>
+                                <td>
+                                    @feature.FeatureValue
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+@*<div>
+    @Html.ActionLink("Listeye Dön", "Index","Category", new { id = Model.CurrentProduct.CategoryId }, new { })
+</div>*@
+

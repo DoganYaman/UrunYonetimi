@@ -1,0 +1,43 @@
+﻿@model UrunYonetimi.Data.Model.Category
+@{
+    ViewBag.Title = "Kategori Silme";
+}
+
+<h2>Kategori Silme</h2>
+
+
+<h2>
+    Bu kategoriyi silmek istiyor musunuz?
+</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+    </dl>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <input type="submit" value="Sil" class="btn btn-default"/> |
+        @Html.ActionLink("Listeye Dön", "Index")
+
+    </div>
+}
+
+
+
+
+
+
+
+
+

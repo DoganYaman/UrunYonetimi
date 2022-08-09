@@ -1,0 +1,52 @@
+﻿@model IEnumerable<UrunYonetimi.Data.Model.ProductFeature>
+@{
+    ViewBag.Title = "Ürün Özellikleri";
+}
+
+<h2>@ViewBag.SelectedProduct.ProductName Özellikleiri</h2>
+
+<p>
+    @Html.ActionLink("Yeni Özellik", "Create", new { id = @ViewBag.SelectedProduct.ProductId }, new { })
+</p>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FeatureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FeatureValue)
+        </th>
+        <th></th>
+    </tr>
+    @Html.Hidden("selectedProductId", (string)ViewBag.SelectedProduct.ProductId.ToString(), new { })
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.FeatureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.FeatureValue)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.ProductFeatureId, productID = ViewBag.SelectedProduct.ProductId }) |
+                @Html.ActionLink("Detaylar", "Details", new { id = item.ProductFeatureId, productID = ViewBag.SelectedProduct.ProductId }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.ProductFeatureId })
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
+<div>
+    @Html.ActionLink("Listeye Dön", "Index", "Product")
+</div>
+
+
+

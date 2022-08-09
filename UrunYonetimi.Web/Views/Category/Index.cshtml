@@ -1,0 +1,12 @@
+﻿@model UrunYonetimi.Web.ViewModel.CategoryPageModel
+@{
+    ViewBag.Title = "Kategori Sayfası";
+}
+
+<div class="row">
+    @Html.Partial("MainMenu", Model.CategoryList)
+    <div class="col-md-9">
+        @Html.Partial("ProductList", Model.ProductList)
+    </div>
+</div>
+
